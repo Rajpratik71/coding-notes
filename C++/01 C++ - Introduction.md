@@ -186,6 +186,17 @@ Also, constants are usually declared with all caps
 `unsigned int` (Same size as signed version)
 `long double` (Not less than double)
 
+#### **decltype**
+
+Declared type. You may be able to get the type of a variable by calling decltype on it. No promises though!
+
+```c++
+int n = 10;
+decltype(n);
+```
+
+
+
 **Example Variable Initialisation:**
 
 ```c++
@@ -201,6 +212,14 @@ char myChar = 'a';
 // You can also initialise multiple variables OF THE SAME TYPE on the same line
 int x = 6, y = 2;
 ```
+
+> You can also use the `auto` keyword if you're not sure which type to use, or if the types might vary. Do note that this sometimes involves some overhead.
+>
+> It does type deduction, which can sometimes avoid implicit type conversions.
+>
+> ```c++
+> auto my_auto = 1;
+> ```
 
 
 
@@ -235,7 +254,7 @@ std::map<int, std::string> map_var { {0, "zero"}, {1, "one"}, {2, "two"} }; // A
 **Direct Initialisation**
 
 ```c++
-int variable(525); // Now stores 5
+int variable(525); // Now stores 525
 
 // Note: variable() will not work! You can't initialise an empty variable that way
 ```
@@ -261,6 +280,35 @@ varName = 8;
 
 So you initialised varName as an integer containing 5
 Then you changed the data stored in it to 8 instead.
+
+#### **Defining Custom Types**
+
+You can define a type alias by using the `typedef` keyword!
+
+```c++
+// Simple typedef
+typedef unsigned long ulong;
+ulong var_five{5}; // So now we can declare an unsigned long using this type alias!
+
+// Pointer typedef
+typedef int* int_ptr;
+
+int a = 5;
+int_ptr b = &a;
+
+// Struct typedef
+typedef struct
+{
+    int a;
+    int b;
+    int c;
+} my_struct;
+
+my_struct haha;
+haha.a = 1;
+haha.b = 2;
+haha.c = 3;
+```
 
 
 
@@ -318,35 +366,33 @@ Example
 
 ```c++
 int five = 5;
-cout << "5++ =  " << five++ << endl; // Increment by 1
-cout << "++5 = " << ++five << endl; // Increment by 1
-cout << "5-- = " << five-- << endl; // Decrement by 1
-cout << "--5 = " << --five << endl; // Decrement by 1
+cout << "5++ gives  " << five++ << endl; // Increment by 1
+cout << "++5 gives " << ++five << endl; // Increment by 1
+cout << "5-- gives " << five-- << endl; // Decrement by 1
+cout << "--5 gives " << --five << endl; // Decrement by 1
 ```
 
 Returns
 
-```c++
-5++ = 5
-++5 = 7
-5-- = 7
---5 = 5
+```
+5++ gives 5
+++5 gives 7
+5-- gives 7
+--5 gives 5
 ```
 
-**That's so weird!**
+> **Wait a sec, weird behaviour!**
+>
+> The reason for this is because when you increment or decrement on the **RIGHT** side, it'll perform the action **AFTER** it gives the value.
+>
+> If you increment or decrement it on the **LEFT** side, it'll perform the action **BEFORE** it gives the value. The reason you have 7 is because 5++ incremented 5 to a 6, but sent 5 before it incremented, so when you have ++5, it took a 6 to begin with and incremented it to 7, then printed it.
+>
+> **Order of operations! Remember it!**
 
-The reason for this is because when you increment or decrement on the **RIGHT** side, it'll perform the action **AFTER** it gives the value.
-
-If you increment or decrement it on the **LEFT** side, it'll perform the action **BEFORE** it gives the value. The reason you have 7 is because 5++ incremented 5 to a 6, but sent 5 before it incremented, so when you have ++5, it took a 6 to begin with and incremented it to 7, then printed it.
-
-**Here's another shorthand!**
+**Another shorthand!**
 
 `five += 5; // five = five + 5;`
-`five -= 5; //five = five - 5;`
-
-**Order of operations**
-
-REMEMBER IT!
+`five -= 5; // five = five - 5;`
 
 
 
@@ -847,9 +893,7 @@ rawr
 
 [go to top](#top)
 
-LITERALLY THE BEST THING EVER
-
-THIS IS PART OF WHAT WON ME THE GOOGLE HACKATHON. DEBUGGING LOVE.
+LITERALLY THE BEST THING EVER. DEBUGGING LOVE.
 
 ```c++
 try{ // Try this. If it doesn't work, then it's fine.
@@ -898,10 +942,6 @@ int main()
 
 int b = a; // Error: name 'a' is not in scope
 ```
-
-
-
-
 
 
 
